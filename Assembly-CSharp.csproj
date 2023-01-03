@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\PoissonDiscSampling.cs" />
+    <Compile Include="Assets\NoiseDrawing.cs" />
+    <Compile Include="Assets\Falloff.cs" />
     <Compile Include="Assets\PerlinNoise.cs" />
     <Compile Include="Assets\TerrainGenerator.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-// Sebastian Lague Poisson Disc Sampling https://www.youtube.com/watch?v=7WcmyxyFO7o&t=188s
+// Sebastian Lague
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,8 +11,8 @@ public static class PoissonDiscSampling
 		float cellSize = radius / Mathf.Sqrt(2);
 
 		int[,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize), Mathf.CeilToInt(sampleRegionSize.y / cellSize)];
-		List<Vector2> points = new List<Vector2>();
-		List<Vector2> spawnPoints = new List<Vector2>();
+		List<Vector2> points = new();
+		List<Vector2> spawnPoints = new();
 
 		spawnPoints.Add(sampleRegionSize / 2);
 		while (spawnPoints.Count > 0)
@@ -24,7 +24,7 @@ public static class PoissonDiscSampling
 			for (int i = 0; i < numSamplesBeforeRejection; i++)
 			{
 				float angle = Random.value * Mathf.PI * 2;
-				Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
+				Vector2 dir = new (Mathf.Sin(angle), Mathf.Cos(angle));
 				Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2 * radius);
 				if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
 				{

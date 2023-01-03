@@ -364,6 +364,8 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.2.1f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.2.1f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/CameraController.cs"
+"Assets/Falloff.cs"
+"Assets/NoiseDrawing.cs"
 "Assets/PerlinNoise.cs"
 "Assets/PoissonDiscSampling.cs"
 "Assets/TerrainGenerator.cs"

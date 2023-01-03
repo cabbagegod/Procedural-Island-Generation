@@ -1,49 +1,68 @@
+// Sebastian Lague and Brackeys
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class PerlinNoise
 {
-    public static Vector3[] GenerateVertices(Vector2 regionSize)
+    public static Vector3[] GenerateVertices(Vector2 regionSize, int seed, float zoom, int octaves, float persistance, float lacunarity, float heightMultiplier, AnimationCurve heightCurve, Vector2 offset)
     {
-        Vector3[] vertices;
+        int width = (int)regionSize.x + 1;
+        int length = (int)regionSize.y + 1;
 
-        vertices = new Vector3[(int)((regionSize.x + 1) * (regionSize.y + 1))];
+        Vector3[] vertices = new Vector3[width * length];
 
-        for (int index = 0, z = 0; z <= regionSize.y; z++)
+        System.Random prng = new (seed);
+        Vector2[] octaveOffsets = new Vector2[octaves];
+        for (int octaveOffset = 0; octaveOffset < octaves; octaveOffset++)
         {
-            for (int x = 0; x <= regionSize.x; x++, index++)
+            float offsetX = prng.Next(-100000, 100000) + offset.x;
+            float offsetY = prng.Next(-100000, 100000) + offset.y;
+            octaveOffsets[octaveOffset] = new Vector2(offsetX, offsetY);
+        }
+
+        float maxNoiseHeight = float.MinValue;
+        float minNoiseHeight = float.MaxValue;
+
+        float halfWidth = (regionSize.x) / 2f;
+        float halfHeight = (regionSize.y) / 2f;
+
+        for (int index = 0, z = 0; z < length; z++)
+        {
+            for (int x = 0; x < width; x++, index++)
             {
-                float y = Mathf.PerlinNoise(x * 0.1f, z * 0.1f) * 1.1f;
+                float frequency = 1;
+                float amplitude = 1;
+                float y = 0;
+
+                for (int octave = 0; octave < octaves; octave++)
+                {
+                    float sampleX = ((x - halfWidth) / zoom * frequency) + (octaveOffsets[octave].x * frequency);
+                    float sampleY = ((z - halfHeight) / zoom * frequency) + (octaveOffsets[octave].y * frequency);
+                    float perlinValue = (Mathf.PerlinNoise(sampleX, sampleY) * 2) - 1;
+                    y += perlinValue * amplitude;
+                    amplitude *= persistance;
+                    frequency *= lacunarity;
+                }
+
+                if (y > maxNoiseHeight)
+                    maxNoiseHeight = y;
+                else if (y < minNoiseHeight)
+                    minNoiseHeight = y;
+
                 vertices[index] = new Vector3(x, y, z);
             }
         }
 
-        return vertices;
-    }
-
-    public static int[] GenerateTriangles(Vector2 regionSize)
-    {
-        int[] triangles = new int[(int)(regionSize.x * regionSize.y * 6)];
-
-        int currentVertex = 0;
-        int currentTriangle = 0;
-
-        for (int z = 0; z < regionSize.y; z++, currentVertex++)
+        for (int index = 0, z = 0; z < length; z++)
         {
-            for (int x = 0; x < regionSize.x; x++, currentVertex++)
+            for (int x = 0; x < width; x++, index++)
             {
-                triangles[currentTriangle + 0] = currentVertex + 0;
-                triangles[currentTriangle + 1] = currentVertex + (int)regionSize.x + 1;
-                triangles[currentTriangle + 2] = currentVertex + 1;
-                triangles[currentTriangle + 3] = currentVertex + 1;
-                triangles[currentTriangle + 4] = currentVertex + (int)regionSize.x + 1;
-                triangles[currentTriangle + 5] = currentVertex + (int)regionSize.x + 2;
-
-                currentTriangle += 6;
+                vertices[index].y = heightMultiplier * heightCurve.Evaluate(Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, vertices[index].y));
             }
         }
 
-        return triangles;
+        return vertices;
     }
 }
