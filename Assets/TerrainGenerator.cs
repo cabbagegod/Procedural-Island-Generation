@@ -31,6 +31,7 @@ public class TerrainGenerator : MonoBehaviour
     public Vector2 offset;
 
     [Header("Falloff")]
+    public bool falloff;
     public float a;
     public float b;
 
@@ -46,13 +47,20 @@ public class TerrainGenerator : MonoBehaviour
         mesh = new Mesh();
 
         meshFilter.mesh = mesh;
+
+        if (terrain)
+            SpawnMesh();
+        if (grass)
+            SpawnGrass();
     }
 
+    /*
     private void Update()
     {
         if (terrain)
             SpawnMesh();
     }
+    */
 
     private void OnValidate()
     {
@@ -64,13 +72,15 @@ public class TerrainGenerator : MonoBehaviour
             lacunarity = 1;
         if (octaves < 1)
             octaves = 1;
+        if (zoom <= 0)
+            zoom = 0.0001f;
     }
 
     private void SpawnMesh()
     {
         mesh.Clear();
 
-        Vector3[] vertices = PerlinNoise.GenerateVertices(regionSize, seed, zoom, octaves, persistance, lacunarity, heightMultiplier, heightCurve, offset);
+        Vector3[] vertices = PerlinNoise.GenerateVertices(regionSize, seed, zoom, octaves, persistance, lacunarity, heightMultiplier, heightCurve, offset, Falloff.GenerateFalloff(regionSize, a, b));
         int[] triangles = GenerateTriangles(regionSize);
 
         if (drawingMode == DrawingMode.Noise)

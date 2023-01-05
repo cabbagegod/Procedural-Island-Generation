@@ -344,10 +344,10 @@ MonoBehaviour:
   terrain: 1
   grass: 0
   trees: 0
-  heightMultiplier: 11
-  zoom: 40
-  octaves: 6
-  persistance: 0
+  heightMultiplier: 10
+  zoom: 29.5
+  octaves: 5
+  persistance: 1
   lacunarity: 1
   seed: 0
   heightCurve:
@@ -355,37 +355,56 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      value: 0.0047302246
+      inSlope: 1.6139976
+      outSlope: 1.6139976
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.70372605
-      value: 0.5033789
-      inSlope: 1.6549284
-      outSlope: 1.6549284
+      time: 0.08064628
+      value: 0.13489312
+      inSlope: 1.8973088
+      outSlope: 1.8973088
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.14703444
+      outWeight: 0.19077104
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
+      time: 0.38563156
+      value: 0.6214969
+      inSlope: 0.9686802
+      outSlope: 0.9686802
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.77255726
+      value: 0.7333048
+      inSlope: 0.28137943
+      outSlope: 0.28137943
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.28835115
+    - serializedVersion: 3
+      time: 1.000061
+      value: 0.9999962
+      inSlope: 1.1722504
+      outSlope: 1.1722504
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   offset: {x: 0, y: 0}
-  a: 0.3
-  b: 2.2
+  falloff: 1
+  a: 2.15
+  b: 1
   grassPrefab: {fileID: 7365466739433954920, guid: 9f853dd109431944893a10f88d7d3463, type: 3}
   radius: 0.5
   rejectionSamples: 6

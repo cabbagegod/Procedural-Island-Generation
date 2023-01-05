@@ -20,10 +20,15 @@ public static class Falloff
 				float yValue = (z / (float)length * 2) - 1;
 
 				float value = Mathf.Max(Mathf.Abs(xValue), Mathf.Abs(yValue));
-				map[index].y = Mathf.Pow(value, a) / (Mathf.Pow(value, a) + Mathf.Pow(b - b * value, a));
+				map[index].y = Evaluate(value, a, b);
 			}
 		}
 
 		return map;
+	}
+
+	static float Evaluate(float value, float a, float b)
+	{
+		return Mathf.Pow(value, a) / (Mathf.Pow(value, a) + Mathf.Pow(b - b * value, a));
 	}
 }

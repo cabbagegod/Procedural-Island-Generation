@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class PerlinNoise
 {
-    public static Vector3[] GenerateVertices(Vector2 regionSize, int seed, float zoom, int octaves, float persistance, float lacunarity, float heightMultiplier, AnimationCurve heightCurve, Vector2 offset)
+    public static Vector3[] GenerateVertices(Vector2 regionSize, int seed, float zoom, int octaves, float persistance, float lacunarity, float heightMultiplier, AnimationCurve heightCurve, Vector2 offset, Vector3[] falloff)
     {
         int width = (int)regionSize.x + 1;
         int length = (int)regionSize.y + 1;
@@ -59,7 +59,10 @@ public static class PerlinNoise
         {
             for (int x = 0; x < width; x++, index++)
             {
-                vertices[index].y = heightMultiplier * heightCurve.Evaluate(Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, vertices[index].y));
+                vertices[index].y = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, vertices[index].y);
+                vertices[index].y = Mathf.Clamp01(vertices[index].y - falloff[index].y);
+                vertices[index].y = heightCurve.Evaluate(vertices[index].y);
+                vertices[index].y *= heightMultiplier;
             }
         }
 
