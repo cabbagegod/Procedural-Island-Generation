@@ -257,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8f80bc4cc30b2346b6e19c49edb4e69, type: 2}
+  - {fileID: 2100000, guid: 8cb9a9fdf57956849b26e0387ebd963a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -341,13 +341,15 @@ MonoBehaviour:
   regionSize: {x: 100, y: 100}
   terrain: 1
   grass: 1
+  flowers: 1
+  rocks: 1
   trees: 1
   heightMultiplier: 10
   zoom: 29.5
   octaves: 5
   persistance: 1
   lacunarity: 1
-  seed: 0
+  seed: 867123
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -400,25 +402,42 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   offset: {x: 0, y: 0}
-  falloff: 1
-  a: 2.15
-  b: 1
+  falloffAValue: 2.5
+  falloffBValue: 1
   grassPrefabs:
   - {fileID: 1439904337943108576, guid: ef62619642b0df743b22dd5120c6ac4d, type: 3}
   - {fileID: 2304540294968618315, guid: b8217b9c1183a5144b666d1dd63980c4, type: 3}
-  grassSpawnHeight: 2
+  grassSpawnHeight: 3.5
   grassAmount: 1000
   grassXVariation: 20
   grassYVariation: 180
   grassZVariation: 20
+  flowerPrefabs:
+  - {fileID: 8123141273917358956, guid: 13dd10d6717971d4ea9125d158299b1e, type: 3}
+  - {fileID: 2954823824624447290, guid: 194e9111af0c33840a49d573f2b26952, type: 3}
+  - {fileID: 4400482160171448048, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}
+  flowerSpawnHeight: 3.5
+  flowerAmount: 200
+  flowerXVariation: 20
+  flowerYVariation: 180
+  flowerZVariation: 20
   treePrefabs:
   - {fileID: 4032642331417584291, guid: e133dac167ef59c40b7678ba58107c6a, type: 3}
   - {fileID: 6846767348704259191, guid: 273b8f4150121d249ac7e2fd11da7005, type: 3}
-  treeSpawnHeight: 2
+  - {fileID: 9154215057541871321, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
+  treeSpawnHeight: 4
   treeAmount: 40
   treeXVariation: 5
   treeYVariation: 180
   treeZVariation: 5
+  rockPrefabs:
+  - {fileID: 4500668923149335752, guid: a524090786e7ba545bd5ce3d24c9a3fb, type: 3}
+  - {fileID: 4577034113271871886, guid: 24457fdf8e66c3c49b7599931e0fdcb2, type: 3}
+  rockSpawnHeight: 4
+  rockAmount: 2
+  rockXVariation: 5
+  rockYVariation: 180
+  rockZVariation: 5
 --- !u!1 &1388819517
 GameObject:
   m_ObjectHideFlags: 0

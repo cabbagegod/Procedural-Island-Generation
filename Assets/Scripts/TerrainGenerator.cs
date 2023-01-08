@@ -12,6 +12,8 @@ public class TerrainGenerator : MonoBehaviour
     public Vector2 regionSize = new (100, 100);
     public bool terrain;
     public bool grass;
+    public bool flowers;
+    public bool rocks;
     public bool trees;
 
     [Header("Perlin Noise")]
@@ -24,11 +26,9 @@ public class TerrainGenerator : MonoBehaviour
     public int seed;
     public AnimationCurve heightCurve;
     public Vector2 offset;
-
-    [Header("Falloff")]
-    public bool falloff;
-    public float a;
-    public float b;
+    public float falloffAValue;
+    public float falloffBValue;
+    
 
     [Header("Grass")]
     public GameObject[] grassPrefabs;
@@ -41,6 +41,17 @@ public class TerrainGenerator : MonoBehaviour
     [Range(0, 180)]
     public float grassZVariation;
 
+    [Header("Flowers")]
+    public GameObject[] flowerPrefabs;
+    public float flowerSpawnHeight;
+    public int flowerAmount;
+    [Range(0, 180)]
+    public float flowerXVariation;
+    [Range(0, 180)]
+    public float flowerYVariation;
+    [Range(0, 180)]
+    public float flowerZVariation;
+
     [Header("Trees")]
     public GameObject[] treePrefabs;
     public float treeSpawnHeight;
@@ -51,6 +62,17 @@ public class TerrainGenerator : MonoBehaviour
     public float treeYVariation;
     [Range(0, 180)]
     public float treeZVariation;
+
+    [Header("Rocks")]
+    public GameObject[] rockPrefabs;
+    public float rockSpawnHeight;
+    public int rockAmount;
+    [Range(0, 180)]
+    public float rockXVariation;
+    [Range(0, 180)]
+    public float rockYVariation;
+    [Range(0, 180)]
+    public float rockZVariation;
 
     Mesh mesh;
 
@@ -64,6 +86,10 @@ public class TerrainGenerator : MonoBehaviour
             SpawnMesh();
         if (grass)
             RandomlySpawn(grassPrefabs, regionSize, grassSpawnHeight, grassAmount, grassXVariation, grassYVariation, grassZVariation);
+        if (flowers)
+            RandomlySpawn(flowerPrefabs, regionSize, flowerSpawnHeight, flowerAmount, flowerXVariation, flowerYVariation, flowerZVariation);
+        if (rocks)
+            RandomlySpawn(rockPrefabs, regionSize, rockSpawnHeight, rockAmount, rockXVariation, rockYVariation, rockZVariation);
         if (trees)
             RandomlySpawn(treePrefabs, regionSize, treeSpawnHeight, treeAmount, treeXVariation, treeYVariation, treeZVariation);
     }
@@ -86,7 +112,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         mesh.Clear();
 
-        mesh.vertices = PerlinNoise.GenerateVertices(regionSize, seed, zoom, octaves, persistance, lacunarity, heightMultiplier, heightCurve, offset, Falloff.GenerateFalloff(regionSize, a, b));
+        mesh.vertices = PerlinNoise.GenerateVertices(regionSize, seed, zoom, octaves, persistance, lacunarity, heightMultiplier, heightCurve, offset, Falloff.GenerateFalloff(regionSize, falloffAValue, falloffBValue));
         mesh.triangles = GenerateTriangles(regionSize);
 
         mesh.RecalculateNormals();
