@@ -15,6 +15,7 @@ public class TerrainGenerator : MonoBehaviour
     public bool flowers;
     public bool rocks;
     public bool trees;
+    [SerializeField] private bool seededObjects = true;
 
     [Header("Perlin Noise")]
     public float heightMultiplier;
@@ -79,8 +80,9 @@ public class TerrainGenerator : MonoBehaviour
     private void Start()
     {
         mesh = new Mesh();
-
         meshFilter.mesh = mesh;
+
+        Random.InitState(seed);
 
         if (terrain)
             SpawnMesh();
