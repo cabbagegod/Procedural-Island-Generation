@@ -82,7 +82,8 @@ public class TerrainGenerator : MonoBehaviour
         mesh = new Mesh();
         meshFilter.mesh = mesh;
 
-        Random.InitState(seed);
+        if(seededObjects)
+            Random.InitState(seed);
 
         if (terrain)
             SpawnMesh();
